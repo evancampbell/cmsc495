@@ -16,6 +16,8 @@ Update src/main/resources/application.yml:
 - smtp:address should be your email address(has to be gmail)
 - smtp:password should be the gmail application password you set up
 - spring:resources:static-locations should be: file:/PROJECTPATH/src/main/resources, where PROJECTPATH is the absolute path of the project
+
+
 make a folder named mongo in the top level of the project
 
 make a folder named captures in the src/main/resources directory
