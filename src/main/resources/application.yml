@@ -1,0 +1,13 @@
+captures-dir: src/main/resources/captures/
+admin:
+password:
+smtp:
+  address:
+  password:
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+  resources:
+    static-locations:
+

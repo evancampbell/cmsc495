@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+<head>
+    <title>View history</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <a href="/">Back home</a>
+    <h1 th:text="${'History of ' + {url}}">History</h1>
+    <ul th:each="date,iter : ${dates}">
+        <li th:inline="text">[[${date}]]<br/><br/>
+            <a th:href="@{${'/captures/' + url + '/' + files[iter.index] }}">
+                <img th:src="@{${'/captures/' + url + '/' + files[iter.index] }}" width="500" />
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>.

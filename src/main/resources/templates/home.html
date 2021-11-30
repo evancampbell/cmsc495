@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Welcome!</h1>
+    <span th:text="${successAdd}"></span>
+    <form class="form-add" th:action="@{/add}" method="post">
+        <h1 class="h3 mb-3 font-weight-normal">Subscribe to new site</h1>
+        <div th:if="${param.error}">
+            Invalid url
+        </div>
+        <label for="inputUrl">URL</label>
+        <input type="url" name="url" id="inputUrl" placeholder="url" required="" />
+        <button type="submit">Subscribe</button>
+    </form>
+    <h2>Your subscribed sites</h2>
+    <ul th:each="site : ${sites}">
+
+        <li >
+            <a href="viewhistory.html" th:href="@{/viewhistory(url=${site.url})}" th:text="${site.url}" ></a>
+        </li>
+    </ul>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</body>
+</html>
