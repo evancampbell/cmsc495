@@ -1,15 +1,23 @@
-This is a Maven project so get that set up if you haven't already. You will also need to install Selenium and Chromedriver, this is needed for the screenshot taking. The methods of installing Selenium will differ based on your system. 
+How to run this:
 
-Currently this works on MongoDB. Once the application is running, go to localhost:6067 to view the interface. You can add user/site pairs and click Subscribe. Every 1 minute(this can be changed in Main.java:54) a browser is opened with all the sites added, takes a screenshot of each, and saves it to res/captures. You can enter a site url and click View previous screenshots and it will display all screenshots that have been taken of that site. 
+Install Maven
+Install MongoDB
+Download Chromedriver for Selenium. Make sure you check the version of Chrome you have installed, and get that same version of Chromedriver.
+Set Chromedriver to your PATH, this will vary by what OS you use
+Assuming you're using gmail, google how to set up an application password for it. This is necessary for sending email from the application.
+Update src/main/resources/application.yml:
+- admin should be your email address
+- password can be anything (these are for logging in as an admin in the application)
+- smtp:address should be your email address(has to be gmail)
+- smtp:password should be the gmail application password you set up
+- spring:resources:static-locations should be: file:/PROJECTPATH/src/main/resources, where PROJECTPATH is the absolute path of the project
+make a folder named mongo in the top level of the project
+make a folder named captures in the src/main/resources directory
+open command line/terminal, run this: mongod --dbpath /PROJECTPATH/mongo
+then in another window or tab run: mvn spring-boot:run
 
-You will need to change the project root dir in Constants.java. Create res/captures/.
+it should be running, point your browser to localhost:8080/login. Create a new user, login, and add a site. You can log in as an admin to start the automated screenshot taking. The interval is set to 1 minute. 
 
-To do:
-Email has not been configured yet, a SMTP server needs to be set up. There is no user authentication, you just put in an email address(or anything really)
-
-Right now both the client and server both run in the same application, this could possibly be changed but I don't know how necessary that is.
-
-There is also not much input checking so don't do anything unexpected.
 
 
 
