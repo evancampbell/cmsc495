@@ -35,35 +35,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         UserDetailsService userDetailsService = mongoUserDetails();
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                //.antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/").hasAuthority("user")
-                .antMatchers("/add").hasAuthority("user")
-                .antMatchers("/viewhistory").hasAuthority("user")
-                .antMatchers("/register").permitAll()
-                .antMatchers("/admin/**").hasAuthority("admin")
-                .anyRequest().authenticated()
-                .and().csrf().disable().formLogin().successHandler(authSuccessHandler)
-                .loginPage("/login").failureUrl("/login?error=true")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").and().exceptionHandling();
+            .authorizeRequests()
+            //.antMatchers("/").permitAll()
+            .antMatchers("/login").permitAll()
+            .antMatchers("/").hasAuthority("user")
+            .antMatchers("/add").hasAuthority("user")
+            .antMatchers("/unsubscribe").hasAuthority("user")
+            .antMatchers("/viewhistory").hasAuthority("user")
+            .antMatchers("/register").permitAll()
+            .antMatchers("/admin/**").hasAuthority("admin")
+            .anyRequest().authenticated()
+            .and().csrf().disable().formLogin().successHandler(authSuccessHandler)
+            .loginPage("/login").failureUrl("/login?error=true")
+            .usernameParameter("email")
+            .passwordParameter("password")
+            .and().logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/login").and().exceptionHandling();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
-                .ignoring()
-                .antMatchers("/resources/**");
+            .ignoring()
+            .antMatchers("/resources/**");
     }
 }
