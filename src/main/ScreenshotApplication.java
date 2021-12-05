@@ -4,23 +4,21 @@ import main.db.Role;
 import main.db.RoleRepository;
 import main.db.User;
 import main.db.UserRepository;
-
 import main.properties.GlobalProperties;
-import main.properties.SMTPProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class ScreenshotApplication extends SpringBootServletInitializer {
 
+	public final Logger log = LoggerFactory.getLogger(ScreenshotApplication.class);
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -35,9 +33,11 @@ public class ScreenshotApplication extends SpringBootServletInitializer {
 	}
 
 	@Bean
+	public Logger getLogger() { return log; }
+
+	@Bean
 	CommandLineRunner init(RoleRepository roleRepository, UserRepository userRepository) {
 		return args -> {
-
 			Role adminRole = roleRepository.findByRole("admin");
 			if (adminRole == null) {
 				Role newAdminRole = new Role();
