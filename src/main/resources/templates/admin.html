@@ -3,14 +3,26 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
 <head>
     <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div layout:fragment="content">
+<frame layout:fragment="content">
     <!-- <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1> -->
     <h2>This is your Admin Dashboard</h2>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<h4>Users:</h4>
+<ul th:each="user : ${users}">
+    <li th:inline="text">[[${user.email}]]
+    <form th:action="@{/admin}" method="post">
+        <input type="hidden" name="email" th:value="${user.email}" />
+        <input type="submit" value="Delete user" />
+    </form></li>
+</ul>
+    <h4>Logged errors:</h4>
+    <p th:text="${log}"></p>
+
 </div>
 </body>
 </html>
