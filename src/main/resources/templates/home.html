@@ -3,13 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
 <head>
     <title>Spring Security Example</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div layout:fragment="content">
     <h1>Welcome!</h1>
     <span th:text="${successAdd}"></span>
     <form class="form-add" th:action="@{/add}" method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Subscribe to new site</h1>
+        <h2 class="h3 mb-3 font-weight-normal">Subscribe to new site</h2>
         <div th:if="${param.error}">
             Invalid url
         </div>
@@ -18,10 +19,15 @@
         <button type="submit">Subscribe</button>
     </form>
     <h2>Your subscribed sites</h2>
+    <h4>Click to view screenshot history</h4>
     <ul th:each="site : ${sites}">
 
         <li >
             <a href="viewhistory.html" th:href="@{/viewhistory(url=${site.url})}" th:text="${site.url}" ></a>
+            <form th:action="@{/unsubscribe}" method="post">
+                <input type="hidden" name="url" th:value="${site.url}" />
+                <input type="submit" value="Unsubscribe"/>
+            </form>
         </li>
     </ul>
     <form th:action="@{/logout}" method="post">
