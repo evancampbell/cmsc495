@@ -6,13 +6,13 @@ import main.properties.GlobalProperties;
 import main.service.SSUserDetailsService;
 import main.service.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -89,6 +89,13 @@ public class ScreenshotController {
         model.addObject("url", url);
         model.setViewName("viewhistory");
         return model;
+    }
+
+    @RequestMapping(value="/unsubscribe", method=RequestMethod.POST)
+    public RedirectView unsubscribe(@RequestParam String url, Authentication auth) {
+        String currentUsername = auth.getName();
+        siteService.removeUser(url, userService.findUserByEmail(currentUsername));
+        return new RedirectView("/");
     }
 
 }
