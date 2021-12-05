@@ -24,6 +24,8 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static io.github.bonigarcia.wdm.config.DriverManagerType.CHROME;
@@ -33,6 +35,9 @@ public class ScreenshotRunnable implements Runnable {
 	private SiteService siteService;
 	private EmailService emailService;
 	private String capturesDir = "src/main/resources/captures/";
+
+	@Autowired
+	private Logger logger;
 
 	public ScreenshotRunnable(SiteService siteService, EmailService emailService) {
 		super();
@@ -79,9 +84,9 @@ public class ScreenshotRunnable implements Runnable {
                     emailService.sendMail(user.getEmail(), time, url, capturesDir + url + "/" + timestamp.getTime() +".png");
                 }
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage() + "\n");
 			} catch (AWTException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage() + "\n");
 			}
 		}
 		driver.quit();
