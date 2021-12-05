@@ -6,7 +6,7 @@ Install MongoDB
 
 Download Chromedriver for Selenium. Make sure you check the version of Chrome you have installed, and get that same version of Chromedriver.
 
-Set Chromedriver to your PATH, this will vary by what OS you use
+Add Chromedriver to your PATH, this will vary by what OS you use
 
 Assuming you're using gmail, google how to set up an application password for it. This is necessary for sending email from the application.
 
