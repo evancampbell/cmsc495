@@ -10,4 +10,9 @@ spring:
       auto-index-creation: true
   resources:
     static-locations:
+logging:
+  file:
+    name: src/main/resources/application.log
+  level:
+    root: WARN
 
